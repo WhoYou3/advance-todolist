@@ -16,8 +16,8 @@ const LoginForm: React.FC<Props> = ({ kindOfFormHandler }) => {
           <BsFillPersonFill />
         </P.InputBox>
         <P.InputBox>
-          <input required type="password" id="password"></input>
-          <label id="password">Password</label>
+          <input required type="password" id="login-password"></input>
+          <label id="login-password">Password</label>
           <GiPadlock />
         </P.InputBox>
         <button type="submit">SUBMIT</button>

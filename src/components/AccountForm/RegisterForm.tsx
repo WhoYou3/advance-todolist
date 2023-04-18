@@ -17,13 +17,13 @@ const RegisterForm: React.FC<Props> = ({ kindOfFormHandler }) => {
           <BsFillPersonFill />
         </P.InputBox>
         <P.InputBox>
-          <input required type="password" id="password"></input>
-          <label id="password">Password</label>
+          <input required type="password" id="singup-password"></input>
+          <label id="singup-password">Password</label>
           <GiPadlock />
         </P.InputBox>
         <P.InputBox>
-          <input required type="password" id="password"></input>
-          <label id="password">Repeat Password</label>
+          <input required type="password" id="repeat-password"></input>
+          <label id="repeat-password">Repeat Password</label>
           <GiPadlock />
         </P.InputBox>
         <button type="submit">REGISTER</button>
