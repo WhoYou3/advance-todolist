@@ -2,7 +2,11 @@ import * as P from "./parts";
 import { GiPadlock } from "react-icons/gi";
 import { BsFillPersonFill } from "react-icons/bs";
 
-const RegisterForm: React.FC = () => {
+interface Props {
+  kindOfFormHandler: () => void;
+}
+
+const RegisterForm: React.FC<Props> = ({ kindOfFormHandler }) => {
   return (
     <P.Wrapper>
       <h2>Registration</h2>
@@ -24,7 +28,8 @@ const RegisterForm: React.FC = () => {
         </P.InputBox>
         <button type="submit">REGISTER</button>
         <p>
-          Already have an account ? <span>LOGIN</span>
+          Already have an account ?{" "}
+          <span onClick={kindOfFormHandler}>LOGIN</span>
         </p>
       </P.Form>
     </P.Wrapper>

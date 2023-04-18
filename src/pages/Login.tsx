@@ -1,10 +1,20 @@
 import { LoginForm, RegisterForm } from "../components";
 import styled from "styled-components";
 import backgroundImage from "../assets/background-login.jpg";
-const Login = () => {
+import { useState } from "react";
+const Login: React.FC = () => {
+  const [kindForm, setKindForm] = useState<boolean>(true);
+
+  const kindOfForm = () => {
+    setKindForm((prev) => !prev);
+  };
   return (
     <Background>
-      <RegisterForm />
+      {kindForm ? (
+        <LoginForm kindOfFormHandler={kindOfForm} />
+      ) : (
+        <RegisterForm kindOfFormHandler={kindOfForm} />
+      )}
     </Background>
   );
 };
