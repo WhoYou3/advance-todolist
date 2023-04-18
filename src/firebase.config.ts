@@ -1,4 +1,6 @@
-import dotenv from "dotenv";
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import "firebase/compat/firestore";
 
 export const firebaseConfig = {
   apiKey: "AIzaSyC8PSKbX9LZFZuCz0v2fHWNFhtsbLZr5IU",

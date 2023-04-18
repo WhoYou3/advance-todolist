@@ -1,10 +1,13 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Home, Login } from "./pages";
-import { initializeApp } from "firebase/app";
-import { firebaseConfig } from "./firebase.config";
 import AuthRoute from "./components/AuthRoute/AuthRoute";
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import "firebase/compat/firestore";
+import { firebaseConfig } from "./firebase.config";
 
-export const app = initializeApp(firebaseConfig);
+export const app = firebase.initializeApp(firebaseConfig);
+export const auth = app.auth();
 
 const router = createBrowserRouter([
   {
