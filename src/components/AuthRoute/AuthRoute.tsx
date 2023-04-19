@@ -9,18 +9,33 @@ const AuthRoute: React.FC<AuthRouteProps> = (props) => {
   const { children } = props;
   const auth = getAuth();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setLoading(false);
+      } else {
+        setLoading(false);
+      }
+    });
 
-  const AuthCheck = onAuthStateChanged(auth, (user) => {
-    if (user) {
-      setLoading(false);
-    } else {
-      console.log("TESTUJEMY");
-      navigate("/login");
+    return () => unsubscribe(); // Czyszczenie subskrypcji przy odmontowywaniu komponentu
+  }, [auth]);
+
+  useEffect(() => {
+    if (!loading) {
+      // Sprawdzenie, czy loading jest ustawione na false
+      if (auth.currentUser) {
+        console.log("tescik");
+        console.log(auth.currentUser);
+        // Sprawdzenie, czy użytkownik jest zalogowany
+        navigate("/");
+      } else {
+        navigate("/login");
+      }
     }
-  });
+  }, [loading, auth, navigate]);
 
   if (loading) return <p>loading..</p>;
 
