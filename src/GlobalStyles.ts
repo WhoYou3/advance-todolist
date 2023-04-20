@@ -1,5 +1,10 @@
 import { createGlobalStyle } from "styled-components";
 
+export const globalcolors: Record<string, string> = {
+  lightThemeBackground: "828FA3",
+  darkThemeBackground: "2B2C37",
+};
+
 export const GlobalStyle = createGlobalStyle`
 
 * {

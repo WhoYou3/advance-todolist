@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 interface AuthRouteProps {
   children: React.ReactNode;
@@ -9,35 +10,16 @@ const AuthRoute: React.FC<AuthRouteProps> = (props) => {
   const { children } = props;
   const auth = getAuth();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState<boolean>(false);
+
+  const context = useAuth();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setLoading(false);
-      } else {
-        setLoading(false);
-      }
-    });
-
-    return () => unsubscribe(); // Czyszczenie subskrypcji przy odmontowywaniu komponentu
-  }, [auth]);
-
-  useEffect(() => {
-    if (!loading) {
-      // Sprawdzenie, czy loading jest ustawione na false
-      if (auth.currentUser) {
-        console.log("tescik");
-        console.log(auth.currentUser);
-        // Sprawdzenie, czy użytkownik jest zalogowany
-        navigate("/");
-      } else {
-        navigate("/login");
-      }
+    if (sessionStorage.getItem("id")) {
+      navigate(`/${context?.currentUser?.uid}`);
+    } else {
+      navigate("/login");
     }
-  }, [loading, auth, navigate]);
-
-  if (loading) return <p>loading..</p>;
+  }, [auth, navigate]);
 
   return <>{children}</>;
 };

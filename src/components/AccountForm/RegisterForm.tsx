@@ -1,7 +1,8 @@
 import { useRef, useState } from "react";
-import { auth } from "../../App";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { addDoc } from "firebase/firestore";
+import { usersRef } from "../../App";
 import * as P from "./parts";
 import { GiPadlock } from "react-icons/gi";
 import { BsFillPersonFill } from "react-icons/bs";
@@ -17,7 +18,11 @@ const RegisterForm: React.FC<Props> = ({ kindOfFormHandler }) => {
   const [error, setError] = useState<String>("");
   const [loading, setLoading] = useState<boolean>(false);
   const context = useAuth();
-  console.log(context?.currentUser);
+  const navigate = useNavigate();
+
+  const addNewUserToFirebase = async (id: string) => {
+    await addDoc(usersRef, { id });
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,6 +36,9 @@ const RegisterForm: React.FC<Props> = ({ kindOfFormHandler }) => {
       setError("");
       setLoading(true);
       await context?.signUp(emailValue!, passwordValue!);
+      navigate(`/${context?.currentUser?.uid}`);
+      sessionStorage.setItem("id", `${context?.currentUser?.uid}`);
+      addNewUserToFirebase(context!.currentUser!.uid);
     } catch {
       setError("Failed to create an account");
     }

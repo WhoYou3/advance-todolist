@@ -4,12 +4,7 @@ import AuthRoute from "./components/AuthRoute/AuthRoute";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
-import {
-  collection,
-  getDocs,
-  getFirestore,
-  QuerySnapshot,
-} from "firebase/firestore";
+import { collection, getDocs, getFirestore, doc } from "firebase/firestore";
 import { firebaseConfig } from "./firebase.config";
 
 export const app = firebase.initializeApp(firebaseConfig);
@@ -18,6 +13,11 @@ export const auth = app.auth();
 export const db = getFirestore();
 
 export const usersRef = collection(db, "Users");
+
+export const fetchUserData = (id: string) => {
+  const userRef = doc(collection(db, "Users"), id);
+  return userRef;
+};
 
 const querySnapshot = await getDocs(usersRef);
 
@@ -33,7 +33,22 @@ const router = createBrowserRouter([
       </AuthRoute>
     ),
   },
-  { path: "/Login", element: <Login /> },
+  {
+    path: "/:userId",
+    element: (
+      <AuthRoute>
+        <Home />
+      </AuthRoute>
+    ),
+  },
+  {
+    path: "/Login",
+    element: (
+      <AuthRoute>
+        <Login />
+      </AuthRoute>
+    ),
+  },
 ]);
 
 function App() {
