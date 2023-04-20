@@ -18,6 +18,8 @@ interface AuthContextValue {
     password: string
   ) => Promise<firebase.auth.UserCredential>;
   logout: () => Promise<void>;
+  theme: boolean;
+  setTheme: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const AuthContext = React.createContext<AuthContextValue | null>(null);
@@ -29,6 +31,7 @@ export const useAuth = () => {
 const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<firebase.User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const [theme, setTheme] = useState<boolean>(false);
 
   const signUp = (email: string, password: string) => {
     return auth.createUserWithEmailAndPassword(email, password);
@@ -46,6 +49,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
       setLoading(false);
+      console.log("kiedy");
     });
     return unsubscribe;
   }, []);
@@ -55,6 +59,8 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     signUp,
     login,
     logout,
+    theme,
+    setTheme,
   };
 
   return (
