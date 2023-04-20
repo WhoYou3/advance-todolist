@@ -20,6 +20,11 @@ interface AuthContextValue {
   logout: () => Promise<void>;
   theme: boolean;
   setTheme: React.Dispatch<React.SetStateAction<boolean>>;
+  currentUserData: {
+    boards: [];
+    id: string;
+  };
+  fetchData: (object: any) => void;
 }
 
 const AuthContext = React.createContext<AuthContextValue | null>(null);
@@ -30,8 +35,35 @@ export const useAuth = () => {
 
 const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<firebase.User | null>(null);
+  const [currentUserData, setCurrentUserData] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [theme, setTheme] = useState<boolean>(false);
+  console.log(currentUser);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user && user.uid && user.email) {
+        setCurrentUser((prev) => (prev = user));
+        console.log("set");
+        setLoading(false);
+      } else {
+        setCurrentUser(null);
+        setLoading(false);
+      }
+    });
+    return unsubscribe;
+  }, []);
+
+  useEffect(() => {
+    if (sessionStorage.length === 0) {
+      logout();
+      console.log("clear");
+    }
+  }, [sessionStorage.length]);
+
+  const fetchData = (object: any) => {
+    setCurrentUserData(object);
+  };
 
   const signUp = (email: string, password: string) => {
     return auth.createUserWithEmailAndPassword(email, password);
@@ -45,15 +77,6 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     return auth.signOut();
   };
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setCurrentUser(user);
-      setLoading(false);
-      console.log("kiedy");
-    });
-    return unsubscribe;
-  }, []);
-
   const value: AuthContextValue = {
     currentUser,
     signUp,
@@ -61,6 +84,8 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     logout,
     theme,
     setTheme,
+    currentUserData,
+    fetchData,
   };
 
   return (

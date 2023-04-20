@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
-import { useNavigate } from "react-router-dom";
-import { addDoc } from "firebase/firestore";
+import { useNavigate, useLocation } from "react-router-dom";
+import { setDoc, doc } from "firebase/firestore";
 import { usersRef } from "../../App";
 import * as P from "./parts";
 import { GiPadlock } from "react-icons/gi";
@@ -21,9 +21,12 @@ const RegisterForm: React.FC<Props> = ({ kindOfFormHandler }) => {
   const navigate = useNavigate();
 
   const addNewUserToFirebase = async (id: string) => {
-    await addDoc(usersRef, { id });
+    await setDoc(doc(usersRef, id), { id, boards: [] });
+    console.log("add new user");
   };
-
+  const test = () => {
+    console.log(context?.currentUser?.uid);
+  };
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const emailValue = email.current?.value;
@@ -35,40 +38,20 @@ const RegisterForm: React.FC<Props> = ({ kindOfFormHandler }) => {
     try {
       setError("");
       setLoading(true);
-      await context?.signUp(emailValue!, passwordValue!);
-      navigate(`/${context?.currentUser?.uid}`);
-      sessionStorage.setItem("id", `${context?.currentUser?.uid}`);
-      addNewUserToFirebase(context!.currentUser!.uid);
+      await context!.signUp(emailValue!, passwordValue!);
+      // await addNewUserToFirebase("test");
     } catch {
       setError("Failed to create an account");
     }
     setLoading(false);
   };
+  console.log(context?.currentUser);
+  if (context?.currentUser) {
+    addNewUserToFirebase(context.currentUser.uid);
+    sessionStorage.setItem("id", context.currentUser.uid);
+    navigate("/");
+  }
 
-  // const [errorMessage, setErrorMessage] = useState<String>("");
-  // const navigate = useNavigate();
-
-  // const signup = (email: string, password: string) => {
-  //   return auth.createUserWithEmailAndPassword(email, password);
-  // };
-
-  // const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-  //   const userLogin = login.current?.value || "";
-  //   const userPassword = password.current?.value || "";
-  //   const userRepeatPassword = repeatPassword.current?.value || "";
-
-  //   if (userPassword !== userRepeatPassword) {
-  //     return setErrorMessage("Password dont match");
-  //   }
-
-  //   try {
-  //     await signup(userLogin, userPassword);
-  //     navigate("/");
-  //   } catch {
-  //     setErrorMessage("Failed create account");
-  //   }
-  // };
   return (
     <P.Wrapper>
       <h2>Registration</h2>

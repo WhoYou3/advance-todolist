@@ -15,7 +15,6 @@ const LoginForm: React.FC<Props> = ({ kindOfFormHandler }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const context = useAuth();
   const navigate = useNavigate();
-  console.log(context?.currentUser);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

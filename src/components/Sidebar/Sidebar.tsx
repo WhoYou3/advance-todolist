@@ -18,7 +18,6 @@ const Sidebar = () => {
   const toggleSwitch = () => {
     context?.setTheme((prev) => !prev);
   };
-  console.log(theme);
 
   return (
     <P.Sidebar sidebarValue={isSidebar} themeValue={theme!}>
@@ -26,6 +25,7 @@ const Sidebar = () => {
       <p>ALL BOARDS</p>
       <ul>
         <li>test</li>
+        <li>add new board</li>
       </ul>
       <div>
         <BsMoonFill />
