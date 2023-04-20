@@ -1,12 +1,9 @@
 import styled from "styled-components";
 import { globalColors } from "../../GlobalStyles";
+import { Theme } from "../../types";
 
 interface Props {
   isMenu: boolean;
-}
-
-interface Theme {
-  themeValue: boolean;
 }
 
 export const Navbar = styled.nav<Theme>`
@@ -18,6 +15,10 @@ export const Navbar = styled.nav<Theme>`
     themeValue
       ? globalColors.lightThemeSecondary
       : globalColors.darkThemeSecondary};
+  border-bottom: ${({ themeValue }) =>
+    themeValue
+      ? "1px rgba(0,0,0, 0.3) solid"
+      : "1px rgba(255, 255, 255, 0.3) solid"};
 
   img {
     display: none;

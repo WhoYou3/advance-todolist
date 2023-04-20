@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { getDoc } from "firebase/firestore";
 import { useAuth } from "../context/AuthContext";
 import { fetchUserData } from "../App";
-import { Navbar } from "../components";
+import { Navbar, Sidebar } from "../components";
 import styled from "styled-components";
 import { globalColors } from "../GlobalStyles";
 
@@ -21,6 +21,7 @@ const Home = () => {
   return (
     <Background themeValue={theme!}>
       <Navbar></Navbar>
+      <Sidebar />
     </Background>
   );
 };
