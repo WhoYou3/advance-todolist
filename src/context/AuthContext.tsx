@@ -13,6 +13,11 @@ interface AuthContextValue {
     email: string,
     password: string
   ) => Promise<firebase.auth.UserCredential>;
+  login: (
+    email: string,
+    password: string
+  ) => Promise<firebase.auth.UserCredential>;
+  logout: () => Promise<void>;
 }
 
 const AuthContext = React.createContext<AuthContextValue | null>(null);
@@ -29,6 +34,14 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     return auth.createUserWithEmailAndPassword(email, password);
   };
 
+  const login = (email: string, password: string) => {
+    return auth.signInWithEmailAndPassword(email, password);
+  };
+
+  const logout = () => {
+    return auth.signOut();
+  };
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
@@ -40,7 +53,10 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const value: AuthContextValue = {
     currentUser,
     signUp,
+    login,
+    logout,
   };
+
   return (
     <AuthContext.Provider value={value}>
       {!loading && children}
