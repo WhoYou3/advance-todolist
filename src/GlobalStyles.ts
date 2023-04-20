@@ -7,6 +7,7 @@ export const globalColors: any = {
   darkThemeSecondary: "#2B2C37",
   buttonPrimary: "#635FC7",
   buttonSecondary: "#A8A4FF",
+  textPrimary: "#828FA3",
 };
 
 export const GlobalStyle = createGlobalStyle`

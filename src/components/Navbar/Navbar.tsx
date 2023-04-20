@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import Switch from "react-switch";
 import { IoMdArrowDropdown } from "react-icons/Io";
 import { BsMoonFill, BsSun } from "react-icons/bs";
+import { TbBooks } from "react-icons/tb";
 import { BiPlus } from "react-icons/Bi";
 import { useAuth } from "../../context/AuthContext";
 import logo from "../../assets/logo-dark.svg";
+import { ToggleContainer, WrapperBoards } from "../Sidebar/parts";
 import * as P from "./parts";
 
 const Navbar = () => {
@@ -34,13 +36,31 @@ const Navbar = () => {
           <IoMdArrowDropdown />
         </P.Wrapper>
         {isMenu ? (
-          <P.Menu>
-            <li>test</li>
-            <div>
+          <P.Menu isMenu={isMenu} themeValue={theme!}>
+            <WrapperBoards>
+              <ul>
+                <li
+                  onClick={() => {
+                    context?.openBoard();
+                    setIsMenu(false);
+                  }}
+                >
+                  <TbBooks color="#635FC7" />
+                  <p color="#635FC7">Add New Board</p>
+                </li>
+                {context?.currentUserData?.boards?.map((board) => (
+                  <li key={board.title}>
+                    <TbBooks />
+                    <p>{board.title}</p>
+                  </li>
+                ))}
+              </ul>
+            </WrapperBoards>
+            <ToggleContainer themeValue={theme!}>
               <BsMoonFill />
               <Switch onChange={toggleSwitch} checked={context!.theme} />
               <BsSun />
-            </div>
+            </ToggleContainer>
           </P.Menu>
         ) : null}
       </P.Navigate>

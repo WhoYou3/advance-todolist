@@ -1,38 +1,36 @@
-import React, { useEffect } from "react";
-import { arrayUnion, doc, getDoc, updateDoc } from "@firebase/firestore";
+import React, { useEffect, useState } from "react";
+import { doc, getDoc, onSnapshot } from "@firebase/firestore";
 import { usersRef } from "../../App";
 import { useAuth } from "../../context/AuthContext";
+
 import * as P from "./parts";
+import { AddNewBorderForm } from "..";
 
 const Todos = () => {
   const context = useAuth();
-
+  const [newTaskForm, setNewTaskForm] = useState<boolean>(false);
   useEffect(() => {
     const fetchData = async () => {
       try {
         const userDocRef = doc(usersRef, context?.currentUser?.uid);
-        const userDocSnap = await getDoc(userDocRef);
-        const userData = userDocSnap.data();
-        context?.fetchData(userData);
-        console.log(userData);
+        const unsubscribe = onSnapshot(userDocRef, (userDocSnap) => {
+          const userData = userDocSnap.data();
+          context?.fetchData(userData);
+        });
+        return () => unsubscribe;
+        // const userDocSnap = await getDoc(userDocRef);
       } catch {}
     };
 
     fetchData();
   }, []);
+  console.log(context?.currentUserData?.boards![0].title);
 
-  const addNewBoard = async () => {
-    const userDocRef = doc(usersRef, context?.currentUser?.uid);
-    await updateDoc(userDocRef, {
-      boards: arrayUnion({ title: "tytuł", body: "dupa" }),
-    });
-    console.log("dodano");
-  };
-
+  console.log(newTaskForm);
   return (
     <P.Wrapper>
-      testujee
-      <button onClick={addNewBoard}>Add new border </button>
+      <button onClick={context?.openBoard}>Add new border </button>
+      {context?.openBoardForm ? <AddNewBorderForm /> : null}
     </P.Wrapper>
   );
 };

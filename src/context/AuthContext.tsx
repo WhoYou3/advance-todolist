@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { auth } from "../App";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
+import { UserTasksData } from "../types";
 
 interface AuthProviderProps {
   children: React.ReactNode;
@@ -20,11 +21,11 @@ interface AuthContextValue {
   logout: () => Promise<void>;
   theme: boolean;
   setTheme: React.Dispatch<React.SetStateAction<boolean>>;
-  currentUserData: {
-    boards: [];
-    id: string;
-  };
-  fetchData: (object: any) => void;
+  currentUserData: UserTasksData | null;
+  fetchData: (object: any) => UserTasksData | null;
+  openBoard: () => void;
+  openBoardForm: boolean;
+  closeBoardForm: () => void;
 }
 
 const AuthContext = React.createContext<AuthContextValue | null>(null);
@@ -35,9 +36,12 @@ export const useAuth = () => {
 
 const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<firebase.User | null>(null);
-  const [currentUserData, setCurrentUserData] = useState<any>(null);
+  const [currentUserData, setCurrentUserData] = useState<UserTasksData | null>(
+    null
+  );
   const [loading, setLoading] = useState<boolean>(true);
   const [theme, setTheme] = useState<boolean>(false);
+  const [openBoardForm, setOpenBoardForm] = useState<boolean>(false);
   console.log(currentUser);
 
   useEffect(() => {
@@ -61,8 +65,17 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   }, [sessionStorage.length]);
 
-  const fetchData = (object: any) => {
+  const openBoard = () => {
+    setOpenBoardForm(true);
+  };
+
+  const closeBoardForm = () => {
+    setOpenBoardForm(false);
+  };
+
+  const fetchData = (object: UserTasksData): UserTasksData | null => {
     setCurrentUserData(object);
+    return object;
   };
 
   const signUp = (email: string, password: string) => {
@@ -86,6 +99,9 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setTheme,
     currentUserData,
     fetchData,
+    openBoard,
+    openBoardForm,
+    closeBoardForm,
   };
 
   return (

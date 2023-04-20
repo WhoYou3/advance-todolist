@@ -102,15 +102,35 @@ export const Wrapper = styled.div<Props>`
   }
 `;
 
-export const Menu = styled.div`
+export const Menu = styled.div<Theme & Props>`
+  display: flex;
+  flex-direction: column;
   position: absolute;
   width: 264px;
   height: 322px;
   top: 50px;
   left: -50%;
-  background: #2b2c37;
+  z-index: 2;
+  background: ${({ themeValue }) =>
+    themeValue
+      ? globalColors.lightThemeSecondary
+      : globalColors.darkThemeSecondary};
   box-shadow: 0px 10px 20px rgba(54, 78, 126, 0.25);
   border-radius: 8px;
+  padding: 0 2rem 2rem 2rem;
+
+  transition: opacity 1s ease-in-out;
+  animation: ${({ isMenu }) => (isMenu ? "showOut" : "showIn")} 0.3s ease-in-out;
+  overflow-y: scroll;
+
+  @keyframes showIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 `;
 
 export const AddTask = styled.div<Theme>`

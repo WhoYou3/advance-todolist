@@ -4,7 +4,9 @@ import { globalColors } from "../../GlobalStyles";
 export const Wrapper = styled.section`
   border: 1px red solid;
   padding: 1rem;
+
   button:nth-child(1) {
+    cursor: pointer;
     position: absolute;
     left: 50%;
     top: 50%;

@@ -49,7 +49,7 @@ const RegisterForm: React.FC<Props> = ({ kindOfFormHandler }) => {
   if (context?.currentUser) {
     addNewUserToFirebase(context.currentUser.uid);
     sessionStorage.setItem("id", context.currentUser.uid);
-    navigate("/");
+    navigate(`/${context.currentUser.uid}`);
   }
 
   return (
