@@ -33,4 +33,8 @@ a {
 ul, ol {
    list-style: none;
 }
+
+button:hover {
+  opacity: 0.6;
+}
 `;

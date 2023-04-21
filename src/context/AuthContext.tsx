@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { auth } from "../App";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
-import { UserTasksData } from "../types";
+import { UserTasksData, Board } from "../types";
 
 interface AuthProviderProps {
   children: React.ReactNode;
@@ -26,6 +26,10 @@ interface AuthContextValue {
   openBoard: () => void;
   openBoardForm: boolean;
   closeBoardForm: () => void;
+  isOpenTaskForm: boolean;
+  toggleTaskForm: () => void;
+  fetchBoardData: (board: Board) => void;
+  boardData: Board | null;
 }
 
 const AuthContext = React.createContext<AuthContextValue | null>(null);
@@ -42,7 +46,8 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [theme, setTheme] = useState<boolean>(false);
   const [openBoardForm, setOpenBoardForm] = useState<boolean>(false);
-  console.log(currentUser);
+  const [isOpenTaskForm, setIsOpenTaskForm] = useState<boolean>(false);
+  const [boardData, setBoardData] = useState<Board | null>(null);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -89,6 +94,15 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const logout = () => {
     return auth.signOut();
   };
+  const toggleTaskForm = () => {
+    setIsOpenTaskForm((prev) => !prev);
+  };
+
+  const fetchBoardData = (board: Board) => {
+    setBoardData((prev) => {
+      return { ...prev, ...board };
+    });
+  };
 
   const value: AuthContextValue = {
     currentUser,
@@ -102,6 +116,10 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     openBoard,
     openBoardForm,
     closeBoardForm,
+    isOpenTaskForm,
+    toggleTaskForm,
+    fetchBoardData,
+    boardData,
   };
 
   return (

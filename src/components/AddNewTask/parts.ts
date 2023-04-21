@@ -32,6 +32,7 @@ export const Form = styled.form<Theme>`
 
   h3 {
     font-size: 1.3rem;
+    color: ${({ themeValue }) => (themeValue ? "black" : "white")};
   }
 
   input {
@@ -41,9 +42,10 @@ export const Form = styled.form<Theme>`
     background-color: transparent;
     border: ${({ themeValue }) =>
       themeValue
-        ? "1px solid rgba(130, 143, 163, 0.25);"
+        ? "1px solid rgba(0, 0, 0, 0.25);"
         : "1px solid rgba(130, 143, 163, 0.25);"};
     padding: 0 1rem;
+    color: ${({ themeValue }) => (themeValue ? "black" : "white")};
   }
 
   label {

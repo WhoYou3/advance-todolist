@@ -4,7 +4,7 @@ import { usersRef } from "../../App";
 import { useAuth } from "../../context/AuthContext";
 
 import * as P from "./parts";
-import { AddNewBorderForm } from "..";
+import { AddNewBorderForm, AddNewTaskForm } from "..";
 
 const Todos = () => {
   const context = useAuth();
@@ -24,12 +24,11 @@ const Todos = () => {
 
     fetchData();
   }, []);
-  console.log(context?.currentUserData?.boards![0].title);
 
-  console.log(newTaskForm);
   return (
     <P.Wrapper>
       <button onClick={context?.openBoard}>Add new border </button>
+      {context?.isOpenTaskForm ? <AddNewTaskForm /> : null}
       {context?.openBoardForm ? <AddNewBorderForm /> : null}
     </P.Wrapper>
   );

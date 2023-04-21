@@ -4,11 +4,11 @@ export interface Theme {
 
 export interface UserTasksData {
   boards: Boards[] | null;
-  tasks: TasksStatus | null;
 }
 
 interface Boards {
-  title: string;
+  title: string | undefined;
+  tasks: TasksStatus | null;
 }
 
 interface TasksStatus {

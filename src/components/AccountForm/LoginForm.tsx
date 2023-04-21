@@ -25,13 +25,15 @@ const LoginForm: React.FC<Props> = ({ kindOfFormHandler }) => {
       setError("");
       setLoading(true);
       await context?.login(emailValue!, passwordValue!);
-      navigate(`/${context?.currentUser?.uid}`);
-      sessionStorage.setItem("id", `${context?.currentUser?.uid}`);
     } catch {
       setError("Failed to log in");
     }
     setLoading(false);
   };
+  if (context?.currentUser) {
+    sessionStorage.setItem("id", context.currentUser.uid);
+    navigate(`/${context.currentUser.uid}`);
+  }
 
   return (
     <P.Wrapper>

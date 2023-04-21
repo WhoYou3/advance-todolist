@@ -13,12 +13,9 @@ export const Sidebar = styled.aside<Theme & SidebarProps>`
   transition: transform 0.5s ease-out;
   transform: ${({ sidebarValue }) =>
     sidebarValue ? "translateX(0)" : "translateX(-100%)"};
-
   top: 0;
-  border: 1px blue solid;
   display: flex;
   flex-direction: column;
-  padding: 2rem 3rem;
   border-right: ${({ themeValue }) =>
     themeValue
       ? "1px rgba(0,0,0, 0.3) solid"
@@ -37,8 +34,20 @@ export const Sidebar = styled.aside<Theme & SidebarProps>`
   }
 `;
 
+export const ImageContainer = styled.div`
+  padding: 2rem 3rem;
+`;
 export const WrapperBoards = styled.div`
   margin-top: 2rem;
+
+  div.selected {
+    font-weight: bold;
+    color: white;
+    width: 90%;
+    padding: 10px;
+    background-color: ${globalColors.buttonPrimary};
+    border-radius: 0px 100px 100px 0px;
+  }
 
   p {
     color: ${globalColors.textPrimary};
@@ -46,13 +55,24 @@ export const WrapperBoards = styled.div`
     font-weight: bold;
     letter-spacing: 2px;
     margin: 1rem 0;
+    text-align: center;
   }
 
+  div.selected li,
+  div.selected li svg {
+    color: white;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+  }
   li {
+    padding: 0.5rem 2rem;
     display: flex;
     align-items: center;
     position: relative;
-    margin: 1rem 0;
+
     color: ${globalColors.textPrimary};
     font-size: 1.1rem;
     cursor: pointer;

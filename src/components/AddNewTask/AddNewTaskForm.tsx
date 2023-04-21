@@ -3,17 +3,13 @@ import { useAuth } from "../../context/AuthContext";
 import { AiOutlineClose } from "react-icons/ai";
 import * as P from "./parts";
 
-interface Props {
-  closeNewTaskForm: () => void;
-}
-
-const AddNewTaskForm: React.FC<Props> = ({ closeNewTaskForm }) => {
+const AddNewTaskForm: React.FC = () => {
   const context = useAuth();
   const theme = context?.theme;
   return (
     <P.Shadow>
       <P.Form themeValue={theme!}>
-        <P.CloseIcon onClick={closeNewTaskForm}>
+        <P.CloseIcon onClick={context?.toggleTaskForm}>
           <AiOutlineClose />
         </P.CloseIcon>
         <h3>Add new task</h3>

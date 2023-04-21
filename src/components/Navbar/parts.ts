@@ -9,7 +9,6 @@ interface Props {
 export const Navbar = styled.nav<Theme>`
   height: 64px;
   display: flex;
-
   padding: 1rem;
   background-color: ${({ themeValue }) =>
     themeValue
@@ -109,7 +108,7 @@ export const Menu = styled.div<Theme & Props>`
   width: 264px;
   height: 322px;
   top: 50px;
-  left: -50%;
+  left: 0px;
   z-index: 2;
   background: ${({ themeValue }) =>
     themeValue
@@ -117,7 +116,6 @@ export const Menu = styled.div<Theme & Props>`
       : globalColors.darkThemeSecondary};
   box-shadow: 0px 10px 20px rgba(54, 78, 126, 0.25);
   border-radius: 8px;
-  padding: 0 2rem 2rem 2rem;
 
   transition: opacity 1s ease-in-out;
   animation: ${({ isMenu }) => (isMenu ? "showOut" : "showIn")} 0.3s ease-in-out;
@@ -136,6 +134,7 @@ export const Menu = styled.div<Theme & Props>`
 export const AddTask = styled.div<Theme>`
   margin-left: auto;
   button {
+    cursor: pointer;
     height: 32px;
     width: 48px;
     background: ${globalColors.buttonPrimary};
@@ -144,6 +143,22 @@ export const AddTask = styled.div<Theme>`
     align-items: center;
     justify-content: center;
 
+    :disabled {
+      opacity: 0.5;
+      position: relative;
+      cursor: default;
+      :hover {
+        ::before {
+          content: "choose or add now border";
+          position: absolute;
+          left: 0;
+          transform: translateX(-100%);
+          color: black;
+          font-size: 1rem;
+          font-weight: bold;
+        }
+      }
+    }
     @media screen and (min-width: 820px) {
       height: 48px;
       width: 164px;
@@ -155,7 +170,7 @@ export const AddTask = styled.div<Theme>`
       @media screen and (min-width: 820px) {
         display: block;
         font-size: 1.1rem;
-        color: ${({ themeValue }) => (themeValue ? "black" : "white")};
+        color: white;
       }
     }
   }

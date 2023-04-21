@@ -5,12 +5,20 @@ import { TbBooks } from "react-icons/tb";
 import { BsMoonFill, BsSun } from "react-icons/bs";
 import { AiOutlineEye } from "react-icons/ai";
 import { useAuth } from "../../context/AuthContext";
+import { Board } from "../../types";
 import * as P from "./parts";
 
 const Sidebar = () => {
   const context = useAuth();
   const theme = context?.theme;
   const [isSidebar, setIsSidebar] = useState<boolean>(true);
+  const [selectedBoard, setSelectedBoard] = useState<string | null>(null);
+
+  console.log(selectedBoard);
+
+  const handleBoardClick = (boardTitle: string) => {
+    setSelectedBoard(boardTitle);
+  };
 
   const toggleSidebar = () => {
     setIsSidebar((prev) => !prev);
@@ -24,19 +32,34 @@ const Sidebar = () => {
     context?.openBoard();
   };
 
-  console.log(context?.openBoardForm);
+  const setBoard = (board: Board) => {
+    context?.fetchBoardData(board);
+  };
+
+  console.log(context?.boardData);
 
   return (
     <P.Sidebar sidebarValue={isSidebar} themeValue={theme!}>
-      <img src={logo}></img>
+      <P.ImageContainer>
+        <img src={logo}></img>
+      </P.ImageContainer>
       <P.WrapperBoards>
         <p>ALL BOARDS ({context?.currentUserData?.boards?.length})</p>
         <ul>
           {context?.currentUserData?.boards?.map((board) => (
-            <li key={board.title}>
-              <TbBooks />
-              {board.title}
-            </li>
+            <div
+              key={board.title}
+              onClick={() => {
+                handleBoardClick(board.title!);
+                setBoard(board);
+              }}
+              className={selectedBoard === board.title ? "selected" : ""}
+            >
+              <li key={board.title}>
+                <TbBooks />
+                {board.title}
+              </li>
+            </div>
           ))}
           <li onClick={openBoardForm}>
             <TbBooks color="#635FC7" />
