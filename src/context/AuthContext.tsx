@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { auth } from "../App";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
-import { UserTasksData, Board } from "../types";
+import { UserTasksData, Board, Task } from "../types";
 
 interface AuthProviderProps {
   children: React.ReactNode;
@@ -30,6 +30,9 @@ interface AuthContextValue {
   toggleTaskForm: () => void;
   fetchBoardData: (board: Board) => void;
   boardData: Board | null;
+  createTask: (task: Task) => void;
+  task: Task | null;
+  setBoardTask: (task: Task) => void;
 }
 
 const AuthContext = React.createContext<AuthContextValue | null>(null);
@@ -48,6 +51,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [openBoardForm, setOpenBoardForm] = useState<boolean>(false);
   const [isOpenTaskForm, setIsOpenTaskForm] = useState<boolean>(false);
   const [boardData, setBoardData] = useState<Board | null>(null);
+  const [task, setTask] = useState<Task | null>(null);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -66,7 +70,6 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   useEffect(() => {
     if (sessionStorage.length === 0) {
       logout();
-      console.log("clear");
     }
   }, [sessionStorage.length]);
 
@@ -104,6 +107,22 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     });
   };
 
+  const setBoardTask = (task: Task) => {
+    setBoardData((prev: any) => {
+      return {
+        ...prev,
+        tasks: {
+          ...prev!.tasks,
+          notStartYetTasks: [...prev.tasks.notStartYetTasks, task],
+        },
+      };
+    });
+  };
+
+  const createTask = (task: Task) => {
+    setTask(task);
+  };
+
   const value: AuthContextValue = {
     currentUser,
     signUp,
@@ -120,6 +139,9 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     toggleTaskForm,
     fetchBoardData,
     boardData,
+    createTask,
+    task,
+    setBoardTask,
   };
 
   return (

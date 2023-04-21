@@ -78,6 +78,9 @@ export const Form = styled.form<Theme>`
   button:nth-of-type(1) {
     background-color: ${({ themeValue }) =>
       themeValue ? globalColors.buttonSecondary : "#FFF"};
+    :disabled {
+      cursor: default;
+    }
   }
   button:nth-of-type(2) {
     background-color: ${({ themeValue }) =>

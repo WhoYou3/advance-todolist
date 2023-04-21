@@ -14,7 +14,14 @@ const NewBorderForm: React.FC = () => {
     e.preventDefault();
     const userDocRef = doc(usersRef, context?.currentUser?.uid);
     await updateDoc(userDocRef, {
-      boards: arrayUnion({ title: boardTitle?.current?.value }),
+      boards: arrayUnion({
+        title: boardTitle?.current?.value,
+        tasks: {
+          notStartYetTasks: [],
+          pendingTasks: [],
+          doneTasks: [],
+        },
+      }),
     });
     context?.closeBoardForm();
   };

@@ -3,21 +3,21 @@ export interface Theme {
 }
 
 export interface UserTasksData {
-  boards: Boards[] | null;
+  boards: Board[] | null;
 }
 
-interface Boards {
+export interface Board {
   title: string | undefined;
   tasks: TasksStatus | null;
 }
 
-interface TasksStatus {
+export interface TasksStatus {
   notStartYetTasks: Task[];
   pendingTasks: Task[];
   doneTasks: Task[];
 }
 
-interface Task {
+export interface Task {
   title: string;
   description: string;
   subTasks?: string[];

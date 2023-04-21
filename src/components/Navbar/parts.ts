@@ -89,6 +89,15 @@ export const Navigate = styled.div`
   }
 `;
 
+export const IconContainer = styled.div`
+  svg {
+    position: absolute;
+    right: 50%;
+    transform: right(-50%);
+    top: 10px;
+    font-size: 1.5rem;
+  }
+`;
 export const Wrapper = styled.div<Props>`
   display: flex;
   align-items: center;

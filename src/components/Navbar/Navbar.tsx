@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Switch from "react-switch";
 import { IoMdArrowDropdown } from "react-icons/Io";
 import { BsMoonFill, BsSun } from "react-icons/bs";
+import { AiOutlineClose } from "react-icons/ai";
 import { TbBooks } from "react-icons/tb";
 import { BiPlus } from "react-icons/Bi";
 import { useAuth } from "../../context/AuthContext";
@@ -52,6 +53,9 @@ const Navbar = () => {
         {isMenu ? (
           <P.Menu isMenu={isMenu} themeValue={theme!}>
             <WrapperBoards>
+              <P.IconContainer onClick={() => setIsMenu(false)}>
+                <AiOutlineClose />
+              </P.IconContainer>
               <ul>
                 <li
                   onClick={() => {

@@ -14,8 +14,6 @@ const Sidebar = () => {
   const [isSidebar, setIsSidebar] = useState<boolean>(true);
   const [selectedBoard, setSelectedBoard] = useState<string | null>(null);
 
-  console.log(selectedBoard);
-
   const handleBoardClick = (boardTitle: string) => {
     setSelectedBoard(boardTitle);
   };

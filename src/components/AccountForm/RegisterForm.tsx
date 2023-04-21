@@ -6,6 +6,7 @@ import { usersRef } from "../../App";
 import * as P from "./parts";
 import { GiPadlock } from "react-icons/gi";
 import { BsFillPersonFill } from "react-icons/bs";
+import { UserTasksData, Board } from "../../types";
 
 interface Props {
   kindOfFormHandler: () => void;
@@ -21,12 +22,42 @@ const RegisterForm: React.FC<Props> = ({ kindOfFormHandler }) => {
   const navigate = useNavigate();
 
   const addNewUserToFirebase = async (id: string) => {
-    await setDoc(doc(usersRef, id), { id, boards: [] });
+    //
+    // const newBoard: UserTasksData =
+    //  = {
+
+    //   title: undefined,
+    //   tasks: {
+    //     notStartYetTasks: [
+    //       {
+    //         title: null,
+    //         description: null,
+    //         subTasks: [],
+    //       },
+    //     ],
+    //     pendingTasks: [
+    //       {
+    //         title: null,
+    //         description: null,
+    //         subTasks: [],
+    //       },
+    //     ],
+    //     doneTasks: [
+    //       {
+    //         title: null,
+    //         description: null,
+    //         subTasks: [],
+    //       },
+    //     ],
+    //   },
+    // };
+    await setDoc(doc(usersRef, id), {
+      id,
+      boards: [],
+    });
     console.log("add new user");
   };
-  const test = () => {
-    console.log(context?.currentUser?.uid);
-  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const emailValue = email.current?.value;

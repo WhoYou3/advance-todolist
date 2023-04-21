@@ -5,6 +5,7 @@ import Sidebar from "./Sidebar/Sidebar";
 import Todos from "./Todos/Todos";
 import AddNewTaskForm from "./AddNewTask/AddNewTaskForm";
 import AddNewBorderForm from "./AddNewBorder/NewBorderForm";
+import Todo from "./Todo/Todo";
 
 export {
   LoginForm,
@@ -14,4 +15,5 @@ export {
   Todos,
   AddNewTaskForm,
   AddNewBorderForm,
+  Todo,
 };
