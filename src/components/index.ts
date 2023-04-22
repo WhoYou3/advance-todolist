@@ -6,6 +6,7 @@ import Todos from "./Todos/Todos";
 import AddNewTaskForm from "./AddNewTask/AddNewTaskForm";
 import AddNewBorderForm from "./AddNewBorder/NewBorderForm";
 import Todo from "./Todo/Todo";
+import TodoDetail from "./TodoDetail/TodoDetail";
 
 export {
   LoginForm,
@@ -16,4 +17,5 @@ export {
   AddNewTaskForm,
   AddNewBorderForm,
   Todo,
+  TodoDetail,
 };

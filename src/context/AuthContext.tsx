@@ -33,6 +33,10 @@ interface AuthContextValue {
   createTask: (task: Task) => void;
   task: Task | null;
   setBoardTask: (task: Task) => void;
+  closeTaskForm: () => void;
+  isTodoDetail: boolean;
+  openTodoDetail: () => void;
+  closeTodoDetail: () => void;
 }
 
 const AuthContext = React.createContext<AuthContextValue | null>(null);
@@ -52,6 +56,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [isOpenTaskForm, setIsOpenTaskForm] = useState<boolean>(false);
   const [boardData, setBoardData] = useState<Board | null>(null);
   const [task, setTask] = useState<Task | null>(null);
+  const [isTodoDetail, setIsTodoDetail] = useState<boolean>(false);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -102,6 +107,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const fetchBoardData = (board: Board) => {
+    console.log("TESTUJE CZY TUTAJ");
     setBoardData((prev) => {
       return { ...prev, ...board };
     });
@@ -123,6 +129,18 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setTask(task);
   };
 
+  const closeTaskForm = () => {
+    setIsOpenTaskForm(false);
+  };
+
+  const openTodoDetail = () => {
+    setIsTodoDetail(true);
+  };
+
+  const closeTodoDetail = () => {
+    setIsTodoDetail(false);
+  };
+
   const value: AuthContextValue = {
     currentUser,
     signUp,
@@ -142,6 +160,10 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     createTask,
     task,
     setBoardTask,
+    closeTaskForm,
+    openTodoDetail,
+    isTodoDetail,
+    closeTodoDetail,
   };
 
   return (

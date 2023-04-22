@@ -12,6 +12,15 @@ export const Shadow = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: default;
+
+  svg {
+    font-size: 2rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: white;
+  }
 `;
 
 export const Form = styled.form<Theme>`
@@ -65,6 +74,7 @@ export const Form = styled.form<Theme>`
       themeValue
         ? "1px solid rgba(130, 143, 163, 0.25);"
         : "1px solid rgba(130, 143, 163, 0.25);"};
+    color: ${({ themeValue }) => (themeValue ? "black" : "white")};
   }
 
   button {
