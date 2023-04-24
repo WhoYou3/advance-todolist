@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Home, Login } from "./pages";
 import AuthRoute from "./components/AuthRoute/AuthRoute";
@@ -11,18 +12,9 @@ export const app = firebase.initializeApp(firebaseConfig);
 export const auth = app.auth();
 
 export const db = getFirestore();
+console.log(db);
 
 export const usersRef = collection(db, "Users");
-
-export const fetchUserData = (id: string) => {
-  const userRef = doc(collection(db, "Users"), id);
-  return userRef;
-};
-
-const querySnapshot = await getDocs(usersRef);
-
-const users = querySnapshot.docs.map((doc) => doc.data());
-console.log(users);
 
 const router = createBrowserRouter([
   {
