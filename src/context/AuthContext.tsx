@@ -62,7 +62,6 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user && user.uid && user.email) {
         setCurrentUser((prev) => (prev = user));
-        console.log("set");
         setLoading(false);
       } else {
         setCurrentUser(null);
@@ -107,7 +106,6 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const fetchBoardData = (board: Board) => {
-    console.log("TESTUJE CZY TUTAJ");
     setBoardData((prev) => {
       return { ...prev, ...board };
     });
@@ -135,6 +133,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const openTodoDetail = () => {
     setIsTodoDetail(true);
+    return;
   };
 
   const closeTodoDetail = () => {

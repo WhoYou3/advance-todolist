@@ -5,6 +5,10 @@ interface Theme {
   themeValue: boolean;
 }
 
+interface Checkbox {
+  isChecked: boolean;
+}
+
 export const Wrapper = styled.div<Theme>`
   height: 557px;
   width: 343px;
@@ -34,9 +38,9 @@ export const Wrapper = styled.div<Theme>`
   }
 `;
 
-export const SubtaskWrapper = styled.div<Theme>`
+export const SubtaskWrapper = styled.div<Theme & Checkbox>`
   display: flex;
-  padding: 0.5rem 1rem;
+  padding: 0rem 1rem;
   border-radius: 8px;
   gap: 20px;
   margin: 1rem 0;
@@ -44,6 +48,9 @@ export const SubtaskWrapper = styled.div<Theme>`
     themeValue
       ? globalColors.lightThemePrimary
       : globalColors.darkThemePrimary};
+  p {
+    text-decoration: ${({ isChecked }) => (isChecked ? "line-through" : "")};
+  }
 `;
 
 export const ButtonsWrapper = styled.div`
@@ -68,6 +75,10 @@ export const ButtonsWrapper = styled.div`
     }
     :nth-child(3) {
       background-color: red;
+    }
+    :disabled {
+      opacity: 0.1;
+      cursor: default;
     }
   }
 `;

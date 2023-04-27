@@ -8,7 +8,6 @@ import { AddNewBorderForm, AddNewTaskForm, Todo } from "..";
 
 const Todos = () => {
   const context = useAuth();
-  const [newTaskForm, setNewTaskForm] = useState<boolean>(false);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -28,7 +27,7 @@ const Todos = () => {
   return (
     <P.Wrapper>
       {context?.currentUserData?.boards?.length! === 0 ? (
-        <button onClick={context?.openBoard}>Add new border </button>
+        <P.Button onClick={context?.openBoard}>Add new border </P.Button>
       ) : null}
       {context?.isOpenTaskForm ? <AddNewTaskForm /> : null}
       {context?.openBoardForm ? <AddNewBorderForm /> : null}
