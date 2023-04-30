@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { auth } from "../App";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
-import { UserTasksData, Board, Task } from "../types";
+import { UserTasksData, Board, Task, SubTask } from "../types";
 
 interface AuthProviderProps {
   children: React.ReactNode;
@@ -37,6 +37,7 @@ interface AuthContextValue {
   isTodoDetail: boolean;
   openTodoDetail: () => void;
   closeTodoDetail: () => void;
+  updateTask: (subtask: SubTask[]) => void;
 }
 
 const AuthContext = React.createContext<AuthContextValue | null>(null);
@@ -127,6 +128,12 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setTask(task);
   };
 
+  const updateTask = (subTask: SubTask[]) => {
+    setTask((prev) => {
+      return { ...prev!, subTasks: subTask };
+    });
+  };
+
   const closeTaskForm = () => {
     setIsOpenTaskForm(false);
   };
@@ -163,6 +170,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     openTodoDetail,
     isTodoDetail,
     closeTodoDetail,
+    updateTask,
   };
 
   return (

@@ -5,6 +5,12 @@ interface Theme {
   themeValue: boolean;
 }
 
+export const Container = styled.section`
+  display: flex;
+  overflow: auto;
+  gap: 2rem;
+`;
+
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;

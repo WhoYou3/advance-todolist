@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { doc, getDoc, onSnapshot } from "@firebase/firestore";
+import { doc, onSnapshot } from "@firebase/firestore";
 import { usersRef } from "../../App";
 import { useAuth } from "../../context/AuthContext";
 
@@ -23,6 +23,7 @@ const Todos = () => {
 
     fetchData();
   }, []);
+  console.log("CZY TU COS SIE DZIEJE ?");
 
   return (
     <P.Wrapper>

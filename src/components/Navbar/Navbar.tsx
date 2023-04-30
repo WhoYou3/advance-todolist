@@ -16,7 +16,6 @@ const Navbar = () => {
   const [isMenu, setIsMenu] = useState<boolean>(false);
   const theme = context?.theme;
   const [selectedBoard, setSelectedBoard] = useState<string | null>(null);
-  console.log(context?.boardData);
   const handleBoardClick = (boardTitle: string) => {
     setSelectedBoard(boardTitle);
   };
@@ -27,7 +26,6 @@ const Navbar = () => {
 
   const toggleSwitch = () => {
     context?.setTheme((prev) => !prev);
-    console.log(context?.theme);
   };
 
   const toggleMenu = () => {

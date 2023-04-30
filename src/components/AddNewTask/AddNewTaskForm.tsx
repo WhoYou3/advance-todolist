@@ -1,6 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { usersRef } from "../../App";
-import { arrayUnion, doc, updateDoc, getDoc } from "firebase/firestore";
+import {
+  arrayUnion,
+  doc,
+  updateDoc,
+  getDoc,
+  deleteDoc,
+} from "firebase/firestore";
 import { useAuth } from "../../context/AuthContext";
 import { AiOutlineClose } from "react-icons/ai";
 import { Task } from "../../types";
@@ -19,7 +25,7 @@ const AddNewTaskForm: React.FC = () => {
   const addSubtask = () => {
     if (subtasks.length < 8) setSubtasks((prev) => [...prev, ""]);
   };
-  console.log(task);
+
   useEffect(() => {
     if (task) {
       setToBoard(task!);
@@ -44,7 +50,6 @@ const AddNewTaskForm: React.FC = () => {
 
   const setToBoard = async (task: Task) => {
     const userDocRef = doc(usersRef, context?.currentUser?.uid);
-    console.log(task);
     context!.setBoardTask(task);
     const boardIndex = context?.currentUserData?.boards?.findIndex(
       (board) => context.boardData?.title === board.title
@@ -75,7 +80,6 @@ const AddNewTaskForm: React.FC = () => {
         onSubmit={(e) => {
           e.preventDefault();
 
-          console.log("dasdas");
           setLocalTask();
         }}
         themeValue={theme!}
