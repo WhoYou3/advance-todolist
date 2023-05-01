@@ -35,6 +35,13 @@ const Navbar = () => {
   const setBoard = (board: Board) => {
     context?.fetchBoardData(board);
   };
+
+  const logout = () => {
+    context?.logout();
+    sessionStorage.clear();
+    location.reload();
+    console.log("ale dzaja");
+  };
   return (
     <P.Navbar themeValue={theme!}>
       <img src={logo}></img>
@@ -99,6 +106,9 @@ const Navbar = () => {
           <BiPlus />
         </button>
       </P.AddTask>
+      <P.Logout>
+        <button onClick={() => logout()}>Logout</button>
+      </P.Logout>
     </P.Navbar>
   );
 };
