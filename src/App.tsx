@@ -7,13 +7,9 @@ import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import { collection, getDocs, getFirestore, doc } from "firebase/firestore";
 import { firebaseConfig } from "./firebase.config";
-
 export const app = firebase.initializeApp(firebaseConfig);
 export const auth = app.auth();
-
 export const db = getFirestore();
-console.log(db);
-
 export const usersRef = collection(db, "Users");
 
 const router = createBrowserRouter([

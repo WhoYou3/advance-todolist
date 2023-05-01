@@ -1,11 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import { usersRef } from "../../App";
-import { arrayUnion, doc, updateDoc, getDoc } from "firebase/firestore";
+import {
+  arrayUnion,
+  doc,
+  updateDoc,
+  getDoc,
+  deleteDoc,
+} from "firebase/firestore";
 import { useAuth } from "../../context/AuthContext";
 import { AiOutlineClose } from "react-icons/ai";
 import { Task } from "../../types";
 import * as P from "./parts";
-import Message from "../Message/Message";
 
 const AddNewTaskForm: React.FC = () => {
   const context = useAuth();
@@ -33,9 +38,10 @@ const AddNewTaskForm: React.FC = () => {
         ...prevState,
         title: title.current?.value,
         description: description.current?.value,
-        subTasks: subtaskRefs.current.map(
-          (subtaskRef) => subtaskRef?.value || ""
-        ),
+        subTasks: subtaskRefs.current.map((subtaskRef) => ({
+          subtask: subtaskRef?.value || "",
+          done: false,
+        })),
       } as Task;
 
       return updatedTask;
@@ -44,12 +50,10 @@ const AddNewTaskForm: React.FC = () => {
 
   const setToBoard = async (task: Task) => {
     const userDocRef = doc(usersRef, context?.currentUser?.uid);
-    console.log(task);
     context!.setBoardTask(task);
     const boardIndex = context?.currentUserData?.boards?.findIndex(
       (board) => context.boardData?.title === board.title
     );
-    console.log("TESTUJE ILE RAZY ");
     if (boardIndex !== -1) {
       const boardDocSnapshot = await getDoc(userDocRef);
       const boardData = boardDocSnapshot.data();
@@ -76,7 +80,6 @@ const AddNewTaskForm: React.FC = () => {
         onSubmit={(e) => {
           e.preventDefault();
 
-          console.log("dasdas");
           setLocalTask();
         }}
         themeValue={theme!}

@@ -20,5 +20,10 @@ export interface TasksStatus {
 export interface Task {
   title: string;
   description: string;
-  subTasks: string[];
+  subTasks: SubTask[];
+}
+
+export interface SubTask {
+  subtask: string;
+  done: boolean;
 }

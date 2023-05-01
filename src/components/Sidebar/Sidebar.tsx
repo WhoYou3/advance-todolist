@@ -34,8 +34,6 @@ const Sidebar = () => {
     context?.fetchBoardData(board);
   };
 
-  console.log(context?.boardData);
-
   return (
     <P.Sidebar sidebarValue={isSidebar} themeValue={theme!}>
       <P.ImageContainer>

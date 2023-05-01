@@ -55,7 +55,6 @@ const RegisterForm: React.FC<Props> = ({ kindOfFormHandler }) => {
       id,
       boards: [],
     });
-    console.log("add new user");
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -76,7 +75,6 @@ const RegisterForm: React.FC<Props> = ({ kindOfFormHandler }) => {
     }
     setLoading(false);
   };
-  console.log(context?.currentUser);
   if (context?.currentUser) {
     addNewUserToFirebase(context.currentUser.uid);
     sessionStorage.setItem("id", context.currentUser.uid);
