@@ -42,7 +42,7 @@ const Sidebar = () => {
       <P.WrapperBoards>
         <p>ALL BOARDS ({context?.currentUserData?.boards?.length})</p>
         <ul>
-          {context?.currentUserData?.boards?.map((board) => (
+          {context?.currentUserData?.boards?.map((board, index) => (
             <div
               key={board.title}
               onClick={() => {

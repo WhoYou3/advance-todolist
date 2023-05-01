@@ -3,6 +3,8 @@ import { globalColors } from "../../GlobalStyles";
 
 export const Wrapper = styled.section`
   padding: 1rem;
+  display: flex;
+  justify-content: center;
 `;
 
 export const Button = styled.button`

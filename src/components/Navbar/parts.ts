@@ -189,3 +189,19 @@ export const AddTask = styled.div<Theme>`
     color: white;
   }
 `;
+
+export const Logout = styled.div`
+  margin-left: 20px;
+  button {
+    cursor: pointer;
+    height: 32px;
+    width: 48px;
+    background: ${globalColors.buttonPrimary};
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    padding: 1rem 2rem;
+  }
+`;

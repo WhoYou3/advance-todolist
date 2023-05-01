@@ -5,9 +5,13 @@ interface Theme {
   themeValue: boolean;
 }
 
+interface Props {
+  color: string;
+}
+
 export const Container = styled.section`
-  display: flex;
   overflow: auto;
+  display: flex;
   gap: 2rem;
 `;
 
@@ -47,7 +51,7 @@ export const Task = styled.li<Theme>`
   }
 `;
 
-export const KindTodo = styled.div<Theme>`
+export const KindTodo = styled.div<Theme & Props>`
   display: flex;
   align-items: center;
   gap: 10px;
@@ -55,7 +59,7 @@ export const KindTodo = styled.div<Theme>`
     height: 12px;
     width: 12px;
     border-radius: 50%;
-    background-color: green;
+    background-color: ${({ color }) => color};
   }
 
   p {
