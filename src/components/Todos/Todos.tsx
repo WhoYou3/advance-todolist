@@ -24,6 +24,7 @@ const Todos = () => {
     fetchData();
   }, []);
   console.log("CZY TU COS SIE DZIEJE ?");
+  console.log(context?.currentUserData);
 
   return (
     <P.Wrapper>

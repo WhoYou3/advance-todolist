@@ -12,6 +12,7 @@ interface Checkbox {
 export const Wrapper = styled.div<Theme>`
   height: 557px;
   width: 343px;
+  min-width: 343px;
   cursor: default;
   background-color: ${({ themeValue }) =>
     themeValue

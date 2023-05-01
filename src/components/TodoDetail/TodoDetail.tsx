@@ -59,9 +59,16 @@ const TodoDetail: React.FC<Task> = ({ title, description, subTasks }) => {
     return areSubtaskIsDone;
   };
 
-  const updateSubtask = (subtask: SubTask[]) => {
-    context?.updateTask(subtask);
-  };
+  useEffect(() => {
+    context?.updateTask(checkSubtasks);
+    console.log("zmiana !");
+  }, [checkSubtasks]);
+  console.log(context?.task);
+
+  // const updateSubtask = (subtask: SubTask[]) => {
+  //   // context?.updateTask(subtask);
+  //   // console.log(context?.task);
+  // };
   const updateFirebaseToPending = async (task: Task) => {
     const userDocRef = doc(usersRef, context?.currentUser?.uid);
     const boardIndex = context?.currentUserData?.boards?.findIndex(
@@ -80,7 +87,6 @@ const TodoDetail: React.FC<Task> = ({ title, description, subTasks }) => {
           boardIndex!
         ].tasks.pendingTasks.findIndex((t: Task) => t.title === task.title);
         boardData;
-        context?.updateTask(checkSubtasks);
 
         boardData!.boards[boardIndex!].tasks.pendingTasks.splice(
           index,
@@ -104,7 +110,6 @@ const TodoDetail: React.FC<Task> = ({ title, description, subTasks }) => {
       context?.closeTodoDetail();
     }
   };
-  console.log(context?.task);
 
   return (
     <Shadow>
@@ -123,6 +128,7 @@ const TodoDetail: React.FC<Task> = ({ title, description, subTasks }) => {
           >
             <input
               type="checkbox"
+              checked={checkSubtasks[index].done ? true : false}
               onChange={() => {
                 handleCheckboxChange(index);
               }}
@@ -135,7 +141,6 @@ const TodoDetail: React.FC<Task> = ({ title, description, subTasks }) => {
           <button
             disabled={!checkIfSubtaskIsStarted()}
             onClick={() => {
-              updateSubtask(checkSubtasks);
               updateFirebaseToPending(context!.task!);
             }}
           >
