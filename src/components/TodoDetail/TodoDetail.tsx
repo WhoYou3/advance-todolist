@@ -22,28 +22,15 @@ const TodoDetail: React.FC<Task> = ({ title, description, subTasks }) => {
       done: subtask.done,
     }));
   });
+  console.log(checkSubtasks);
 
   const [todoDetail, setTodoDetail] = useState<Task>({
     title: title,
     description: description,
     subTasks: checkSubtasks,
   });
-  console.log(todoDetail);
 
-  // useEffect(() => {
-  //   context?.updateTask()
-  // })
-  // useEffect(() => {
-  //   const getUserData = async () => {
-  //     const userDocRef = doc(usersRef, context?.currentUser?.uid);
-  //     const docSnap = await getDoc(userDocRef);
-  //     if (docSnap.exists()) {
-  //       const data = docSnap.data();
-  //       const myBoard = data.boards.find((board:Board) => board.tasks. === 'My Board');
-  //     }
-  //   };
-  //   getUserData();
-  // }, []);
+  console.log(context!.task?.title);
 
   const handleCheckboxChange = (index: number) => {
     setCheckSubtasks((prevSub) => {
@@ -86,24 +73,30 @@ const TodoDetail: React.FC<Task> = ({ title, description, subTasks }) => {
       if (
         boardData!.boards[boardIndex!].tasks.pendingTasks.some(
           (t: Task) => t.title === task.title
-        )
+        ) === true
       ) {
+        console.log("jest true");
         const index = boardData!.boards[
           boardIndex!
         ].tasks.pendingTasks.findIndex((t: Task) => t.title === task.title);
+        boardData;
+        context?.updateTask(checkSubtasks);
+
         boardData!.boards[boardIndex!].tasks.pendingTasks.splice(
           index,
           1,
           task
         );
+        boardData!.boards[boardIndex!].tasks.notStartYetTasks.splice(index, 1);
       } else {
         boardData!.boards[boardIndex!].tasks.pendingTasks.push(task);
+        const index = boardData!.boards[
+          boardIndex!
+        ].tasks.notStartYetTasks.findIndex((t: Task) => t.title === task.title);
+        boardData!.boards[boardIndex!].tasks.notStartYetTasks.splice(index, 1);
+        console.log("jest else");
       }
-
-      boardData!.boards[boardIndex!].tasks.notStartYetTasks.splice(
-        boardIndex,
-        1
-      );
+      console.log(boardIndex);
 
       try {
         await updateDoc(userDocRef, boardData);
@@ -111,6 +104,7 @@ const TodoDetail: React.FC<Task> = ({ title, description, subTasks }) => {
       context?.closeTodoDetail();
     }
   };
+  console.log(context?.task);
 
   return (
     <Shadow>
