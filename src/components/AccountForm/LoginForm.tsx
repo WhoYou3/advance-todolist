@@ -13,6 +13,7 @@ const LoginForm: React.FC<Props> = ({ kindOfFormHandler }) => {
   const password = useRef<HTMLInputElement>(null);
   const [error, setError] = useState<String>("");
   const [loading, setLoading] = useState<boolean>(false);
+  const [showLoginData, setShowLoginData] = useState<boolean>(false);
   const context = useAuth();
   const navigate = useNavigate();
 
@@ -36,7 +37,10 @@ const LoginForm: React.FC<Props> = ({ kindOfFormHandler }) => {
   }
 
   return (
-    <P.Wrapper>
+    <P.Wrapper
+      onMouseLeave={() => setShowLoginData(false)}
+      onMouseOver={() => setShowLoginData(true)}
+    >
       <h2>Login</h2>
       <P.Form onSubmit={handleSubmit}>
         {error && <p>{error}</p>}
@@ -58,9 +62,16 @@ const LoginForm: React.FC<Props> = ({ kindOfFormHandler }) => {
         <button type="submit">SUBMIT</button>
         <p>
           Dont have account ?{" "}
-          <span onClick={kindOfFormHandler}>Register now!</span>
+          <span onClick={() => kindOfFormHandler()}>Register now!</span>
         </p>
       </P.Form>
+      {showLoginData ? (
+        <>
+          <p>Example Email and Password</p>
+          <p>Login: Przyklad123@gmail.com</p>
+          <p>Hasło: przykladowe123</p>
+        </>
+      ) : null}
     </P.Wrapper>
   );
 };
