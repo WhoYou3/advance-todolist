@@ -45,7 +45,13 @@ const LoginForm: React.FC<Props> = ({ kindOfFormHandler }) => {
       <P.Form onSubmit={handleSubmit}>
         {error && <p>{error}</p>}
         <P.InputBox>
-          <input ref={email} required type="email" id="email"></input>
+          <input
+            data-testid="email"
+            ref={email}
+            required
+            type="email"
+            id="email"
+          ></input>
           <label id="email">Email</label>
           <BsFillPersonFill />
         </P.InputBox>
@@ -53,6 +59,7 @@ const LoginForm: React.FC<Props> = ({ kindOfFormHandler }) => {
           <input
             ref={password}
             required
+            data-testid="password"
             type="password"
             id="login-password"
           ></input>
