@@ -20,12 +20,11 @@ const Todo = () => {
     context?.createTask(task);
   };
 
-  console.log(context?.currentUserData);
   const findBoard = () => {
     const data = context?.currentUserData?.boards?.find(
       (board) => board.title === context.boardData?.title
     );
-    console.log(data);
+
     return data;
   };
 
