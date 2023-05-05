@@ -8,7 +8,7 @@ interface AuthProviderProps {
   children: React.ReactNode;
 }
 
-interface AuthContextValue {
+export interface AuthContextValue {
   currentUser: firebase.User | null;
   signUp: (
     email: string,
