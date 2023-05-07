@@ -17,15 +17,10 @@ describe("Valid Login and register form", () => {
     });
   });
   it("valid registration", () => {
-    cy.intercept(
-      "POST",
-      "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=*"
-    ).as("RegisterUser");
-    cy.intercept(
-      "POST",
-      "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyC8PSKbX9LZFZuCz0v2fHWNFhtsbLZr5IU"
-    ).as("RegisterToFirebase");
-    cy.intercept("POST", "");
+    cy.intercept({
+      method: "POST",
+      url: " https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=*",
+    }).as("registerUser");
     cy.visit("/");
     cy.get("span").click();
     cy.get("h2").should("have.text", "Registration");
@@ -33,7 +28,7 @@ describe("Valid Login and register form", () => {
     cy.get('[data-testid="password"]').type("testujehaslo");
     cy.get('[data-testid="repeat-password"]').type("testujehaslo");
     cy.get("button").click();
-    cy.wait("@RegisterUser").then((interception) => {
+    cy.wait("@registerUser").then((interception) => {
       expect(interception.request.body.email).to.equal(
         "testuje12345678@gmail.com"
       );

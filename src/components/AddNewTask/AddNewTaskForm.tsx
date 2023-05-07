@@ -77,6 +77,7 @@ const AddNewTaskForm: React.FC = () => {
   return (
     <P.Shadow>
       <P.Form
+        data-testid="new-task-form"
         onSubmit={(e) => {
           e.preventDefault();
 

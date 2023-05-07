@@ -27,13 +27,23 @@ const NewBorderForm: React.FC = () => {
   };
   return (
     <Shadow>
-      <Form onSubmit={addNewBoard} themeValue={theme!}>
+      <Form
+        data-testid="new-border-form"
+        onSubmit={addNewBoard}
+        themeValue={theme!}
+      >
         <CloseIcon onClick={context?.closeBoardForm}>
           <AiOutlineClose />
         </CloseIcon>
         <h3>Add new Border</h3>
         <label id="Title">Title</label>
-        <input ref={boardTitle} id="Title" type="text" required></input>
+        <input
+          data-testid="input-new-border"
+          ref={boardTitle}
+          id="Title"
+          type="text"
+          required
+        ></input>
 
         <button type="submit">Create Border</button>
       </Form>

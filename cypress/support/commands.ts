@@ -35,3 +35,56 @@
 //     }
 //   }
 // }
+
+Cypress.Commands.add("login", (password: string, email: string) => {
+  cy.get('[data-testid="email"]').type(email);
+  cy.get('[data-testid="password"]').type(password);
+  cy.get("button").click();
+  cy.wait(1000); // waiting for logging
+  cy.window().then((win) => {
+    const storage = win.sessionStorage.getItem("id");
+    cy.wrap(storage).should("exist");
+    cy.url().should("include", storage);
+  });
+});
+
+Cypress.Commands.add("newBorder", (randomString: string) => {
+  let countBorder: number;
+  let borderLength: number;
+  cy.get("[data-testid='borders-list'] li").as("countListElements");
+  cy.get("@countListElements")
+    .its("length")
+    .then((length) => {
+      borderLength = length;
+    });
+
+  cy.get('[ data-testid="count-borders"')
+    .invoke("text")
+    .then((text) => {
+      let textValue = text.match(/\d+/);
+      if (textValue) {
+        countBorder = parseInt(textValue[0], 10);
+      }
+
+      expect(countBorder + 1).eq(borderLength); // +1 because in ul is last element li
+    });
+
+  cy.get('[data-testid="add-new-border"]').click();
+  cy.get('[data-testid="new-border-form"]').within(() => {
+    cy.get("input").type(randomString);
+    cy.get("button").click();
+  });
+});
+
+export const generateRandomString = (length: number) => {
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let result = "";
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+  return result;
+};
+
+const randomString = generateRandomString(6);
+console.log(randomString);

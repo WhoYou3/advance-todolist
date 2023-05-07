@@ -27,7 +27,9 @@ const Todos = () => {
   return (
     <P.Wrapper>
       {context?.currentUserData?.boards?.length! === 0 ? (
-        <P.Button onClick={context?.openBoard}>Add new border </P.Button>
+        <P.Button data-testid="add-new-border" onClick={context?.openBoard}>
+          Add new border{" "}
+        </P.Button>
       ) : null}
       {context?.isOpenTaskForm ? <AddNewTaskForm /> : null}
       {context?.openBoardForm ? <AddNewBorderForm /> : null}
