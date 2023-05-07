@@ -99,6 +99,7 @@ const Navbar = () => {
       <h2>{context?.boardData?.title}</h2>
       <P.AddTask themeValue={theme!}>
         <button
+          data-testid="add-new-task"
           onClick={openNewTask}
           disabled={context?.boardData === null ? true : false}
         >

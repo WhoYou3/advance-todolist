@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 import { auth } from "../App";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
@@ -8,7 +8,7 @@ interface AuthProviderProps {
   children: React.ReactNode;
 }
 
-interface AuthContextValue {
+export interface AuthContextValue {
   currentUser: firebase.User | null;
   signUp: (
     email: string,

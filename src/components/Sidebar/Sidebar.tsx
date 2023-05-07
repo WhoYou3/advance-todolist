@@ -40,8 +40,10 @@ const Sidebar = () => {
         <img src={logo}></img>
       </P.ImageContainer>
       <P.WrapperBoards>
-        <p>ALL BOARDS ({context?.currentUserData?.boards?.length})</p>
-        <ul>
+        <p data-testid="count-borders">
+          ALL BOARDS ({context?.currentUserData?.boards?.length})
+        </p>
+        <ul data-testid="borders-list">
           {context?.currentUserData?.boards?.map((board, index) => (
             <div
               key={board.title}
@@ -59,7 +61,9 @@ const Sidebar = () => {
           ))}
           <li onClick={openBoardForm}>
             <TbBooks color="#635FC7" />
-            <p color="#635FC7">Add New Board</p>
+            <p color="#635FC7" data-testid="add-new-border">
+              Add New Board
+            </p>
           </li>
         </ul>
       </P.WrapperBoards>

@@ -65,6 +65,7 @@ export const Form = styled.form<Theme>`
 
   svg {
     cursor: pointer;
+    color: ${({ themeValue }) => (themeValue ? "black" : "white")};
   }
 
   textarea {
@@ -106,12 +107,18 @@ export const CloseIcon = styled.div`
   color: black;
 `;
 
-export const WrapperSubtasks = styled.div`
+export const WrapperSubtasks = styled.div<Theme>`
   display: flex;
   align-items: center;
   gap: 10px;
   margin-bottom: 1rem;
+  position: relative;
   svg {
     font-size: 1.2rem;
+    position: absolute;
+    right: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: ${({ themeValue }) => (themeValue ? "black" : "white")};
   }
 `;

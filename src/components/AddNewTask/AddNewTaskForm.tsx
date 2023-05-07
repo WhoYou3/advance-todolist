@@ -77,6 +77,7 @@ const AddNewTaskForm: React.FC = () => {
   return (
     <P.Shadow>
       <P.Form
+        data-testid="new-task-form"
         onSubmit={(e) => {
           e.preventDefault();
 
@@ -94,7 +95,7 @@ const AddNewTaskForm: React.FC = () => {
         <textarea required ref={description} id="Description"></textarea>
         <label id="subtasks">Subtasks</label>
         {subtasks.map((subtask, index) => (
-          <P.WrapperSubtasks key={index}>
+          <P.WrapperSubtasks themeValue={theme!} key={index}>
             <input
               ref={(el) => (subtaskRefs.current[index] = el)}
               id="subtasks"

@@ -20,12 +20,11 @@ const Todo = () => {
     context?.createTask(task);
   };
 
-  console.log(context?.currentUserData);
   const findBoard = () => {
     const data = context?.currentUserData?.boards?.find(
       (board) => board.title === context.boardData?.title
     );
-    console.log(data);
+
     return data;
   };
 
@@ -47,7 +46,7 @@ const Todo = () => {
           <div></div>
           <p>TODO ({data?.tasks?.notStartYetTasks.length})</p>
         </P.KindTodo>
-        <ul>
+        <ul data-testid="todo-tasks-list">
           {data?.tasks?.notStartYetTasks?.map((el) => (
             <>
               <P.Task
@@ -83,7 +82,7 @@ const Todo = () => {
           <div></div>
           <p>PENDING ({data?.tasks?.pendingTasks.length})</p>
         </P.KindTodo>
-        <ul>
+        <ul data-testid="tasks-list">
           {data?.tasks?.pendingTasks?.map((el) => (
             <>
               <P.Task

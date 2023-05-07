@@ -22,35 +22,6 @@ const RegisterForm: React.FC<Props> = ({ kindOfFormHandler }) => {
   const navigate = useNavigate();
 
   const addNewUserToFirebase = async (id: string) => {
-    //
-    // const newBoard: UserTasksData =
-    //  = {
-
-    //   title: undefined,
-    //   tasks: {
-    //     notStartYetTasks: [
-    //       {
-    //         title: null,
-    //         description: null,
-    //         subTasks: [],
-    //       },
-    //     ],
-    //     pendingTasks: [
-    //       {
-    //         title: null,
-    //         description: null,
-    //         subTasks: [],
-    //       },
-    //     ],
-    //     doneTasks: [
-    //       {
-    //         title: null,
-    //         description: null,
-    //         subTasks: [],
-    //       },
-    //     ],
-    //   },
-    // };
     await setDoc(doc(usersRef, id), {
       id,
       boards: [],
@@ -69,7 +40,6 @@ const RegisterForm: React.FC<Props> = ({ kindOfFormHandler }) => {
       setError("");
       setLoading(true);
       await context!.signUp(emailValue!, passwordValue!);
-      // await addNewUserToFirebase("test");
     } catch {
       setError("Failed to create an account");
     }
@@ -87,7 +57,13 @@ const RegisterForm: React.FC<Props> = ({ kindOfFormHandler }) => {
       <P.Form onSubmit={handleSubmit}>
         {error && <p>{error}</p>}
         <P.InputBox>
-          <input ref={email} required type="email" id="email"></input>
+          <input
+            data-testid="email"
+            ref={email}
+            required
+            type="email"
+            id="email"
+          ></input>
           <label id="email">Email</label>
           <BsFillPersonFill />
         </P.InputBox>
@@ -95,6 +71,7 @@ const RegisterForm: React.FC<Props> = ({ kindOfFormHandler }) => {
           <input
             ref={password}
             required
+            data-testid="password"
             type="password"
             id="singup-password"
           ></input>
@@ -105,6 +82,7 @@ const RegisterForm: React.FC<Props> = ({ kindOfFormHandler }) => {
           <input
             ref={repeatPassword}
             required
+            data-testid="repeat-password"
             type="password"
             id="repeat-password"
           ></input>
