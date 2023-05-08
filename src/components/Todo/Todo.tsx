@@ -48,7 +48,7 @@ const Todo = () => {
         </P.KindTodo>
         <ul data-testid="todo-tasks-list">
           {data?.tasks?.notStartYetTasks?.map((el) => (
-            <>
+            <div key={el.title}>
               <P.Task
                 onClick={() => {
                   context!.openTodoDetail();
@@ -73,7 +73,7 @@ const Todo = () => {
                   subTasks={todoDetail.subTasks}
                 />
               ) : null}
-            </>
+            </div>
           ))}
         </ul>
       </P.Wrapper>
@@ -82,9 +82,9 @@ const Todo = () => {
           <div></div>
           <p>PENDING ({data?.tasks?.pendingTasks.length})</p>
         </P.KindTodo>
-        <ul data-testid="tasks-list">
+        <ul data-testid="pending-tasks-list">
           {data?.tasks?.pendingTasks?.map((el) => (
-            <>
+            <div key={el.title}>
               <P.Task
                 onClick={() => {
                   context!.openTodoDetail();
@@ -114,7 +114,7 @@ const Todo = () => {
                   subTasks={context!.task?.subTasks!}
                 />
               ) : null}
-            </>
+            </div>
           ))}
         </ul>
       </P.Wrapper>
@@ -125,7 +125,7 @@ const Todo = () => {
         </P.KindTodo>
         <ul>
           {data?.tasks?.doneTasks?.map((el) => (
-            <>
+            <div key={el.title}>
               <P.Task
                 onClick={() => {
                   context!.openTodoDetail();
@@ -155,7 +155,7 @@ const Todo = () => {
                   subTasks={context!.task?.subTasks!}
                 />
               ) : null}
-            </>
+            </div>
           ))}
         </ul>
       </P.Wrapper>

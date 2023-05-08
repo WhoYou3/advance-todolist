@@ -158,7 +158,7 @@ const TodoDetail: React.FC<Task> = ({ title, description, subTasks }) => {
   return (
     <Shadow>
       <AiOutlineClose onClick={() => context?.closeTodoDetail()} />
-      <P.Wrapper themeValue={theme!}>
+      <P.Wrapper data-testid="task-detail" themeValue={theme!}>
         <h3>{title}</h3>
         <p>{description}</p>
         <p>
