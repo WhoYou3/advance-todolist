@@ -69,11 +69,16 @@ Cypress.Commands.add("newBorder", (randomString: string) => {
       expect(countBorder + 1).eq(borderLength); // +1 because in ul is last element li
     });
 
-  cy.get('[data-testid="add-new-border"]').click();
+  cy.get('[data-testid="add-new-border"]').first().click();
   cy.get('[data-testid="new-border-form"]').within(() => {
     cy.get("input").type(randomString);
     cy.get("button").click();
   });
+});
+
+Cypress.Commands.add("logout", () => {
+  cy.contains("button", "Logout").click();
+  cy.getAllSessionStorage().should("be.empty");
 });
 
 export const generateRandomString = (length: number) => {
