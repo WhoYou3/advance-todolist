@@ -1,11 +1,8 @@
-import React, { useEffect } from "react";
 import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import * as P from "./parts";
 import TodoDetail from "../TodoDetail/TodoDetail";
 import { SubTask, Task } from "../../types";
-import { doc, onSnapshot } from "firebase/firestore";
-import { usersRef } from "../../App";
 
 const Todo = () => {
   const [todoDetail, setTodoDetail] = useState<Task>({
