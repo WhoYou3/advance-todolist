@@ -13,10 +13,8 @@ describe("NewBorderForm", () => {
   let closeBoardFormMock: jest.Func;
 
   beforeEach(() => {
-    // Mock the functions
     closeBoardFormMock = jest.fn();
 
-    // Mock the implementation of useAuth to return the mock function
     (useAuth as jest.Mock).mockImplementation(() => ({
       closeBoardForm: closeBoardFormMock,
     }));
