@@ -41,7 +41,11 @@ const Sidebar = () => {
       </P.ImageContainer>
       <P.WrapperBoards>
         <p data-testid="count-borders">
-          ALL BOARDS ({context?.currentUserData?.boards?.length})
+          ALL BOARDS (
+          {context?.currentUserData?.boards?.length
+            ? context?.currentUserData?.boards?.length
+            : 0}
+          )
         </p>
         <ul data-testid="borders-list">
           {context?.currentUserData?.boards?.map((board, index) => (
@@ -67,12 +71,12 @@ const Sidebar = () => {
           </li>
         </ul>
       </P.WrapperBoards>
-      <P.ToggleContainer themeValue={theme!}>
+      <P.ToggleContainer data-testid="theme-toggle" themeValue={theme!}>
         <BsMoonFill />
         <Switch onChange={toggleSwitch} checked={context!.theme} />
         <BsSun />
       </P.ToggleContainer>
-      <P.IconEye onClick={toggleSidebar}>
+      <P.IconEye data-testid="sidebar-toggle" onClick={toggleSidebar}>
         <AiOutlineEye />
       </P.IconEye>
     </P.Sidebar>

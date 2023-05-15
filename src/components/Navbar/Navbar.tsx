@@ -40,7 +40,6 @@ const Navbar = () => {
     context?.logout();
     sessionStorage.clear();
     location.reload();
-    console.log("ale dzaja");
   };
   return (
     <P.Navbar themeValue={theme!}>

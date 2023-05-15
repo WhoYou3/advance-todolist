@@ -9,5 +9,6 @@ describe("Add todos variable", () => {
   });
   it("Add TODO", () => {
     cy.newBorder(randomString);
+    cy.logout();
   });
 });

@@ -89,11 +89,11 @@ const AddNewTaskForm: React.FC = () => {
           <AiOutlineClose />
         </P.CloseIcon>
         <h3>Add new task</h3>
-        <label id="Title">Title</label>
-        <input required ref={title} id="Title" type="text"></input>
-        <label id="Description">Description</label>
-        <textarea required ref={description} id="Description"></textarea>
-        <label id="subtasks">Subtasks</label>
+        <label htmlFor="title">Title</label>
+        <input required ref={title} id="title" type="text"></input>
+        <label htmlFor="description">Description</label>
+        <textarea required ref={description} id="description"></textarea>
+        <label htmlFor="subtasks">Subtasks</label>
         {subtasks.map((subtask, index) => (
           <P.WrapperSubtasks themeValue={theme!} key={index}>
             <input
