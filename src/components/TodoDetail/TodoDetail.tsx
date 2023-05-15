@@ -7,12 +7,6 @@ import { Board, SubTask, Task } from "../../types";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { usersRef } from "../../App";
 
-// interface Task {
-//   title: string;
-//   description: string;
-//   subtasks: SubTask[];
-// }
-
 const TodoDetail: React.FC<Task> = ({ title, description, subTasks }) => {
   const context = useAuth();
   const theme = context?.theme;
@@ -22,15 +16,12 @@ const TodoDetail: React.FC<Task> = ({ title, description, subTasks }) => {
       done: subtask.done,
     }));
   });
-  console.log(checkSubtasks);
 
   const [todoDetail, setTodoDetail] = useState<Task>({
     title: title,
     description: description,
     subTasks: checkSubtasks,
   });
-
-  console.log(context!.task?.title);
 
   const handleCheckboxChange = (index: number) => {
     setCheckSubtasks((prevSub) => {
@@ -61,14 +52,8 @@ const TodoDetail: React.FC<Task> = ({ title, description, subTasks }) => {
 
   useEffect(() => {
     context?.updateTask(checkSubtasks);
-    console.log("zmiana !");
   }, [checkSubtasks]);
-  console.log(context?.task);
 
-  // const updateSubtask = (subtask: SubTask[]) => {
-  //   // context?.updateTask(subtask);
-  //   // console.log(context?.task);
-  // };
   const updateFirebaseToPending = async (task: Task) => {
     const userDocRef = doc(usersRef, context?.currentUser?.uid);
     const boardIndex = context?.currentUserData?.boards?.findIndex(
@@ -82,7 +67,6 @@ const TodoDetail: React.FC<Task> = ({ title, description, subTasks }) => {
           (t: Task) => t.title === task.title
         ) === true
       ) {
-        console.log("jest true");
         const index = boardData!.boards[
           boardIndex!
         ].tasks.pendingTasks.findIndex((t: Task) => t.title === task.title);
@@ -100,9 +84,7 @@ const TodoDetail: React.FC<Task> = ({ title, description, subTasks }) => {
           boardIndex!
         ].tasks.notStartYetTasks.findIndex((t: Task) => t.title === task.title);
         boardData!.boards[boardIndex!].tasks.notStartYetTasks.splice(index, 1);
-        console.log("jest else");
       }
-      console.log(boardIndex);
 
       try {
         await updateDoc(userDocRef, boardData);
