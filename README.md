@@ -16,6 +16,4 @@ Application which menage todos, we can create account and every todos are stored
 For run u need API TOKEN which, PM me to access. After that just type npm install 
 
 <h3>Link</h3>
-<a href='https://mellifluous-sunshine-d6d958.netlify.app
-
-'>Advanced TODO</a>
+<a href='https://mellifluous-sunshine-d6d958.netlify.app'>Advanced TODO</a>
